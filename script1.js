@@ -35,306 +35,542 @@ popup.addEventListener("click", (event) => {
 
 
 // ========================================
-// LANGUAGE SWITCH
+// LANGUAGE
 // ========================================
 
 const enBtn = document.getElementById("enBtn");
 const arBtn = document.getElementById("arBtn");
+
+let currentLanguage = localStorage.getItem("cosmicLanguage") || "en";
+
+
+// ========================================
+// PRODUCT DATA
+// ========================================
+
+const productsDetails = {
+
+    1: {
+        image: "PH/ph1.png",
+
+        name: "Neptune Mini & Marsling",
+        nameAr: "نيبتون ميني ومارسِلِنغ",
+
+        description: "Tiny creatures that came from space!",
+        descriptionAr: "مخلوقات صغيرة جاءت من الفضاء!",
+
+        dimensions: "Height: 5 cm, Width: 7 cm",
+        dimensionsAr: "الارتفاع: 5 سم، العرض: 7 سم",
+
+        material: "100% Acrylic",
+        materialAr: "أكريليك 100%",
+
+        price: "150 SYP"
+    },
+
+    2: {
+        image: "PH/ph2.png",
+
+        name: "Berry Orbit",
+        nameAr: "بيري أوربت",
+
+        description: "A little galaxy wrapped around your hair!",
+        descriptionAr: "مجرة صغيرة تلتف حول شعرك!",
+
+        dimensions: "Length: 22 cm, Width: 5.5 cm",
+        dimensionsAr: "الطول: 22 سم، العرض: 5.5 سم",
+
+        material: "100% Acrylic",
+        materialAr: "أكريليك 100%",
+
+        price: "175 SYP"
+    },
+
+    3: {
+        image: "PH/ph3.png",
+
+        name: "Moonlight on Mars",
+        nameAr: "ضوء القمر على المريخ",
+
+        description: "A beautiful blend of warmth and mystery!",
+        descriptionAr: "مزيج جميل من الدفء والغموض!",
+
+        dimensions: "No dimensions added yet",
+        dimensionsAr: "لم تتم إضافة المقاسات بعد",
+
+        material: "100% Acrylic",
+        materialAr: "أكريليك 100%",
+
+        price: "250 SYP"
+    },
+
+    4: {
+        image: "PH/ph4.png",
+
+        name: "Berry Nebula",
+        nameAr: "سديم التوت",
+
+        description: "A dreamy berry bag with a touch of cosmic charm!",
+        descriptionAr: "حقيبة بلون التوت بلمسة من سحر الكون!",
+
+        dimensions: "Width: 18 cm, Length: 28 cm",
+        dimensionsAr: "العرض: 18 سم، الطول: 28 سم",
+
+        material: "100% Acrylic",
+        materialAr: "أكريليك 100%",
+
+        price: "400 SYP"
+    },
+
+    5: {
+        image: "PH/ph5.png",
+
+        name: "Milky Way Tote",
+        nameAr: "حقيبة درب التبانة",
+
+        description: "A soft celestial tote for everyday adventures!",
+        descriptionAr: "حقيبة سماوية ناعمة لمغامراتك اليومية!",
+
+        dimensions: "Length: 14 cm, Width: 29 cm",
+        dimensionsAr: "الطول: 14 سم، العرض: 29 سم",
+
+        material: "100% Acrylic",
+        materialAr: "أكريليك 100%",
+
+        price: "350 SYP"
+    },
+
+    6: {
+        image: "PH/ph6.png",
+
+        name: "Moonstar",
+        nameAr: "مون ستار",
+
+        description: "A little moon shining beside a star!",
+        descriptionAr: "قمر صغير يضيء بجانب نجمة!",
+
+        dimensions: "No dimensions added yet",
+        dimensionsAr: "لم تتم إضافة المقاسات بعد",
+
+        material: "100% Acrylic",
+        materialAr: "أكريليك 100%",
+
+        price: "300 SYP"
+    },
+
+    7: {
+        image: "PH/ph7.png",
+
+        name: "Heart of Mars",
+        nameAr: "قلب المريخ",
+
+        description: "A cozy little heart inspired by the warmth of Mars!",
+        descriptionAr: "قلب صغير ودافئ مستوحى من دفء المريخ!",
+
+        dimensions: "Width: 9 cm, Length: 7 cm",
+        dimensionsAr: "العرض: 9 سم، الطول: 7 سم",
+
+        material: "100% Acrylic",
+        materialAr: "أكريليك 100%",
+
+        price: "125 SYP"
+    },
+
+    8: {
+        image: "PH/ph8.png",
+
+        name: "Little Marsling",
+        nameAr: "مارسِلِنغ الصغير",
+
+        description: "A cute little alien who came to Earth!",
+        descriptionAr: "كائن فضائي لطيف جاء إلى الأرض!",
+
+        dimensions: "Body: Length 5 cm, Width 6.5 cm, Head: 7 cm",
+        dimensionsAr: "الجسم: الطول 5 سم، العرض 6.5 سم، الرأس: 7 سم",
+
+        material: "100% Acrylic",
+        materialAr: "أكريليك 100%",
+
+        price: "150 SYP"
+    },
+
+    9: {
+        image: "PH/ph9.png",
+
+        name: "Tiny Mars Bear",
+        nameAr: "دب المريخ الصغير",
+
+        description: "Cozy + funny = the cutest little Marsling!",
+        descriptionAr: "دفء + مرح = ألطف مارسِلِنغ!",
+
+        dimensions: "Diameter: 8 cm",
+        dimensionsAr: "القطر: 8 سم",
+
+        material: "100% Acrylic",
+        materialAr: "أكريليك 100%",
+
+        price: "100 SYP"
+    },
+
+    10: {
+        image: "PH/ph10.png",
+
+        name: "Cosmic Stars",
+        nameAr: "نجوم كونية",
+
+        description:
+            "Midnight, ocean blue, and berry red — a wonderful cosmic mix!",
+
+        descriptionAr:
+            "مزيج رائع من لون منتصف الليل والأزرق السماوي والأحمر التوتي!",
+
+        dimensions: "Width: 9 cm, Length: 9 cm",
+        dimensionsAr: "العرض: 9 سم، الطول: 9 سم",
+
+        material: "100% Acrylic",
+        materialAr: "أكريليك 100%",
+
+        price: "100 SYP"
+    },
+
+    11: {
+        image: "PH/ph11.png",
+
+        name: "Moonlight Bow",
+        nameAr: "فيونكة ضوء القمر",
+
+        description:
+            "Would you like to add a little star to your hair or your bag?",
+
+        descriptionAr:
+            "ما رأيكِ بإضافة نجمة صغيرة إلى شعركِ أو حقيبتكِ؟",
+
+        dimensions: "Bow knot: 7 cm, Tail: 5 cm",
+        dimensionsAr: "العقدة: 7 سم، الساق: 5 سم",
+
+        material: "100% Acrylic",
+        materialAr: "أكريليك 100%",
+
+        price: "50 SYP"
+    },
+
+    12: {
+        image: "PH/ph12.png",
+
+        name: "Sky Orbit",
+        nameAr: "مدار السماء",
+
+        description:
+            "Waves between the ocean, the sky, and pure calm.",
+
+        descriptionAr:
+            "موجات بين المحيط والسماء وهدوء لا ينتهي.",
+
+        dimensions: "Width: 60 cm, Length: 26.5 cm",
+        dimensionsAr: "العرض: 60 سم، الطول: 26.5 سم",
+
+        material: "100% Acrylic",
+        materialAr: "أكريليك 100%",
+
+        price: "50 SYP"
+    }
+
+};
+
+
+// ========================================
+// DETAILS ELEMENTS
+// ========================================
+
+const detailsPopup = document.getElementById("detailsPopup");
+const detailsClose = document.getElementById("detailsClose");
+
+const detailsImage = document.getElementById("detailsImage");
+const detailsName = document.getElementById("detailsName");
+
+const detailsDescription =
+    document.getElementById("detailsDescription");
+
+const detailsDimensions =
+    document.getElementById("detailsDimensions");
+
+const detailsMaterial =
+    document.getElementById("detailsMaterial");
+
+const detailsPrice =
+    document.getElementById("detailsPrice");
+
+const detailsOrder =
+    document.getElementById("detailsOrder");
+
+const dimensionsLabel =
+    document.getElementById("dimensionsLabel");
+
+const materialLabel =
+    document.getElementById("materialLabel");
+
+const detailsButtons =
+    document.querySelectorAll(".details-btn");
+
+
+// ========================================
+// UPDATE DETAILS BUTTON LANGUAGE
+// ========================================
+
+function updateDetailsButtons() {
+
+    detailsButtons.forEach((button) => {
+
+        if (currentLanguage === "ar") {
+
+            button.textContent = "المزيد من التفاصيل";
+
+        } else {
+
+            button.textContent = "More Details";
+
+        }
+
+    });
+
+}
+
+
+// ========================================
+// OPEN PRODUCT DETAILS
+// ========================================
+
+detailsButtons.forEach((button) => {
+
+    button.addEventListener("click", () => {
+
+        const productId = button.dataset.product;
+        const product = productsDetails[productId];
+
+        detailsImage.src = product.image;
+
+        if (currentLanguage === "ar") {
+
+            detailsName.textContent = product.nameAr;
+
+            detailsDescription.textContent =
+                product.descriptionAr;
+
+            detailsDimensions.textContent =
+                product.dimensionsAr;
+
+            detailsMaterial.textContent =
+                product.materialAr;
+
+            detailsPrice.textContent =
+                product.price;
+
+            detailsOrder.textContent =
+                "اطلب الآن";
+
+            dimensionsLabel.textContent =
+                "المقاسات";
+
+            materialLabel.textContent =
+                "الخامة";
+
+            detailsPopup.dir = "rtl";
+
+        } else {
+
+            detailsName.textContent =
+                product.name;
+
+            detailsDescription.textContent =
+                product.description;
+
+            detailsDimensions.textContent =
+                product.dimensions;
+
+            detailsMaterial.textContent =
+                product.material;
+
+            detailsPrice.textContent =
+                product.price;
+
+            detailsOrder.textContent =
+                "Order Now";
+
+            dimensionsLabel.textContent =
+                "Dimensions";
+
+            materialLabel.textContent =
+                "Material";
+
+            detailsPopup.dir = "ltr";
+
+        }
+
+        detailsPopup.style.display = "flex";
+
+    });
+
+});
+
+
+// ========================================
+// CLOSE DETAILS
+// ========================================
+
+detailsClose.addEventListener("click", () => {
+
+    detailsPopup.style.display = "none";
+
+});
+
+
+detailsPopup.addEventListener("click", (event) => {
+
+    if (event.target === detailsPopup) {
+
+        detailsPopup.style.display = "none";
+
+    }
+
+});
 
 
 // ========================================
 // ENGLISH
 // ========================================
 
-enBtn.addEventListener("click", () => {
+function setEnglish() {
+
+    currentLanguage = "en";
+
+    // Save language
+    localStorage.setItem("cosmicLanguage", "en");
 
     document.documentElement.dir = "ltr";
     document.documentElement.lang = "en";
 
-
-    // Title
     document.getElementById("collectionTitle").textContent =
         "My Collection";
 
+    for (let i = 1; i <= 12; i++) {
 
-    // Product 1
-    document.getElementById("name1").textContent =
-        "Neptune Mini & Marsling";
+        const product = productsDetails[i];
 
-    document.getElementById("desc1").textContent =
-        "Tiny creatures that came from space!";
+        document.getElementById(`name${i}`).textContent =
+            product.name;
 
-    document.getElementById("order1").textContent =
-        "Order Now";
+        document.getElementById(`desc${i}`).textContent =
+            product.description;
 
+        document.getElementById(`order${i}`).textContent =
+            "Order Now";
 
-    // Product 2
-    document.getElementById("name2").textContent =
-        "Berry Orbit";
+    }
 
-    document.getElementById("desc2").textContent =
-        "A little galaxy wrapped around your hair!";
+    document.getElementById("mainMenu").textContent =
+        "Main Menu";
 
-    document.getElementById("order2").textContent =
-        "Order Now";
+    updateDetailsButtons();
 
-
-    // Product 3
-    document.getElementById("name3").textContent =
-        "Moonlight on Mars";
-
-    document.getElementById("desc3").textContent =
-        "A beautiful blend of warmth and mystery!";
-
-    document.getElementById("order3").textContent =
-        "Order Now";
-
-
-    // Product 4
-    document.getElementById("name4").textContent =
-        "Berry Nebula";
-
-    document.getElementById("desc4").textContent =
-        "A dreamy berry bag with a touch of cosmic charm!";
-
-    document.getElementById("order4").textContent =
-        "Order Now";
-
-
-    // Product 5
-    document.getElementById("name5").textContent =
-        "Milky Way Tote";
-
-    document.getElementById("desc5").textContent =
-        "A soft celestial tote for everyday adventures!";
-
-    document.getElementById("order5").textContent =
-        "Order Now";
-
-
-    // Product 6
-    document.getElementById("name6").textContent =
-        "Moonstar";
-
-    document.getElementById("desc6").textContent =
-        "A little moon shining beside a star!";
-
-    document.getElementById("order6").textContent =
-        "Order Now";
-
-
-    // Product 7
-    document.getElementById("name7").textContent =
-        "Heart of Mars";
-
-    document.getElementById("desc7").textContent =
-        "A cozy little heart inspired by the warmth of Mars!";
-
-    document.getElementById("order7").textContent =
-        "Order Now";
-
-
-    // Product 8
-    document.getElementById("name8").textContent =
-        "Little Marsling";
-
-    document.getElementById("desc8").textContent =
-        "A cute little alien who came to Earth!";
-
-    document.getElementById("order8").textContent =
-        "Order Now";
-
-
-    // Product 9
-    document.getElementById("name9").textContent =
-        "Tiny Mars Bear";
-
-    document.getElementById("desc9").textContent =
-        "Cozy + funny = the cutest little Marsling!";
-
-    document.getElementById("order9").textContent =
-        "Order Now";
-
-
-    // Product 10
-    document.getElementById("name10").textContent =
-        "Cosmic Stars";
-
-    document.getElementById("desc10").textContent =
-        "Midnight, ocean blue, and berry red — a wonderful cosmic mix!";
-
-    document.getElementById("order10").textContent =
-        "Order Now";
-
-
-    // Product 11
-    document.getElementById("name11").textContent =
-        "Moonlight Bow";
-
-    document.getElementById("desc11").textContent =
-        "Would you like to add a little star to your hair or your bag?";
-
-    document.getElementById("order11").textContent =
-        "Order Now";
-
-
-    // Product 12
-    document.getElementById("name12").textContent =
-        "Sky Orbit";
-
-    document.getElementById("desc12").textContent =
-        "Waves between the ocean, the sky, and pure calm.";
-
-    document.getElementById("order12").textContent =
-        "Order Now";
-
-});
+}
 
 
 // ========================================
 // ARABIC
 // ========================================
 
-arBtn.addEventListener("click", () => {
+function setArabic() {
+
+    currentLanguage = "ar";
+
+    // Save language
+    localStorage.setItem("cosmicLanguage", "ar");
 
     document.documentElement.dir = "rtl";
     document.documentElement.lang = "ar";
 
-
-    // Title
     document.getElementById("collectionTitle").textContent =
         "مجموعتي";
 
+    const namesAr = [
+        "نيبتون ميني ومارسِلِنغ",
+        "بيري أوربت",
+        "ضوء القمر على المريخ",
+        "سديم التوت",
+        "حقيبة درب التبانة",
+        "مون ستار",
+        "قلب المريخ",
+        "مارسِلِنغ الصغير",
+        "دب المريخ الصغير",
+        "نجوم كونية",
+        "فيونكة ضوء القمر",
+        "مدار السماء"
+    ];
 
-    // Product 1
-    document.getElementById("name1").textContent =
-        "نيبتون ميني ومارسِلِنغ";
+    const descriptionsAr = [
+        "مخلوقات صغيرة جاءت من الفضاء!",
+        "مجرة صغيرة تلتف حول شعرك!",
+        "مزيج جميل من الدفء والغموض!",
+        "حقيبة بلون التوت بلمسة من سحر الكون!",
+        "حقيبة سماوية ناعمة لمغامراتك اليومية!",
+        "قمر صغير يضيء بجانب نجمة!",
+        "قلب صغير ودافئ مستوحى من دفء المريخ!",
+        "كائن فضائي لطيف جاء إلى الأرض!",
+        "دفء + مرح = ألطف مارسِلِنغ!",
+        "مزيج رائع من لون منتصف الليل والأزرق السماوي والأحمر التوتي!",
+        "ما رأيكِ بإضافة نجمة صغيرة إلى شعركِ أو حقيبتكِ؟",
+        "موجات بين المحيط والسماء وهدوء لا ينتهي."
+    ];
 
-    document.getElementById("desc1").textContent =
-        "مخلوقات صغيرة جاءت من الفضاء!";
+    for (let i = 1; i <= 12; i++) {
 
-    document.getElementById("order1").textContent =
-        "اطلبي الآن";
+        document.getElementById(`name${i}`).textContent =
+            namesAr[i - 1];
 
+        document.getElementById(`desc${i}`).textContent =
+            descriptionsAr[i - 1];
 
-    // Product 2
-    document.getElementById("name2").textContent =
-        "بيري أوربت";
+        document.getElementById(`order${i}`).textContent =
+            "اطلب الآن";
 
-    document.getElementById("desc2").textContent =
-        "مجرة صغيرة تلتف حول شعرك!";
+    }
 
-    document.getElementById("order2").textContent =
-        "اطلبي الآن";
+    document.getElementById("mainMenu").textContent =
+        "القائمة الرئيسية";
 
+    updateDetailsButtons();
 
-    // Product 3
-    document.getElementById("name3").textContent =
-        "ضوء القمر على المريخ";
-
-    document.getElementById("desc3").textContent =
-        "مزيج جميل من الدفء والغموض!";
-
-    document.getElementById("order3").textContent =
-        "اطلبي الآن";
-
-
-    // Product 4
-    document.getElementById("name4").textContent =
-        "سديم التوت";
-
-    document.getElementById("desc4").textContent =
-        "حقيبة بلون التوت بلمسة من سحر الكون!";
-
-    document.getElementById("order4").textContent =
-        "اطلبي الآن";
-
-
-    // Product 5
-    document.getElementById("name5").textContent =
-        "حقيبة درب التبانة";
-
-    document.getElementById("desc5").textContent =
-        "حقيبة سماوية ناعمة لمغامراتك اليومية!";
-
-    document.getElementById("order5").textContent =
-        "اطلبي الآن";
+}
 
 
-    // Product 6
-    document.getElementById("name6").textContent =
-        "مون ستار";
+// ========================================
+// LANGUAGE BUTTONS
+// ========================================
 
-    document.getElementById("desc6").textContent =
-        "قمر صغير يضيء بجانب نجمة!";
+enBtn.addEventListener("click", () => {
 
-    document.getElementById("order6").textContent =
-        "اطلبي الآن";
-
-
-    // Product 7
-    document.getElementById("name7").textContent =
-        "قلب المريخ";
-
-    document.getElementById("desc7").textContent =
-        "قلب صغير ودافئ مستوحى من دفء المريخ!";
-
-    document.getElementById("order7").textContent =
-        "اطلبي الآن";
-
-
-    // Product 8
-    document.getElementById("name8").textContent =
-        "مارسِلِنغ الصغير";
-
-    document.getElementById("desc8").textContent =
-        "كائن فضائي لطيف جاء إلى الأرض!";
-
-    document.getElementById("order8").textContent =
-        "اطلبي الآن";
-
-
-    // Product 9
-    document.getElementById("name9").textContent =
-        "دب المريخ الصغير";
-
-    document.getElementById("desc9").textContent =
-        "دفء + مرح = ألطف مارسِلِنغ!";
-
-    document.getElementById("order9").textContent =
-        "اطلبي الآن";
-
-
-    // Product 10
-    document.getElementById("name10").textContent =
-        "نجوم كونية";
-
-    document.getElementById("desc10").textContent =
-        "مزيج رائع من لون منتصف الليل والأزرق السماوي والأحمر التوتي!";
-
-    document.getElementById("order10").textContent =
-        "اطلبي الآن";
-
-
-    // Product 11
-    document.getElementById("name11").textContent =
-        "فيونكة ضوء القمر";
-
-    document.getElementById("desc11").textContent =
-        "ما رأيكِ بإضافة نجمة صغيرة إلى شعركِ أو حقيبتكِ؟";
-
-    document.getElementById("order11").textContent =
-        "اطلبي الآن";
-
-
-    // Product 12
-    document.getElementById("name12").textContent =
-        "مدار السماء";
-
-    document.getElementById("desc12").textContent =
-        "موجات بين المحيط والسماء وهدوء لا ينتهي.";
-
-    document.getElementById("order12").textContent =
-        "اطلبي الآن";
+    setEnglish();
 
 });
+
+
+arBtn.addEventListener("click", () => {
+
+    setArabic();
+
+});
+
+
+// ========================================
+// LOAD SAVED LANGUAGE
+// ========================================
+
+if (currentLanguage === "ar") {
+
+    setArabic();
+
+} else {
+
+    setEnglish();
+
+}
