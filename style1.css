@@ -1,0 +1,270 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0%;
+    background:
+        radial-gradient(circle at top, #1A2747 0%, #111827 35%, #0B0F1A 100%);
+    color: white;
+    overflow-x: hidden;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+@font-face {
+    font-family: "Space Grotesk";
+    src: url("./fonts/SpaceGrotesk-Regular.ttf");
+}
+
+.space {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 8px white, 0 0 14px white;
+}
+
+.s1 {
+    top: 10%;
+    left: 15%;
+}
+
+.s2 {
+    top: 20%;
+    right: 12%;
+}
+
+.s3 {
+    top: 50%;
+    left: 8%;
+}
+
+.s4 {
+    top: 65%;
+    right: 20%;
+}
+
+.s5 {
+    top: 80%;
+    left: 40%;
+}
+
+.title {
+    text-align: center;
+    color: bisque;
+    font-size: 30px;
+    margin: 20px 0 0;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 80%;
+    max-width: 800px;
+    margin: 30px auto;
+}
+
+.title,
+.products,
+.back-btn {
+    position: relative;
+    z-index: 1;
+}
+
+.products img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 25px;
+    display: block;
+}
+
+.products img:last-child {
+    grid-column: 1 / 3;
+    width: 50%;
+    justify-self: center;
+}
+.menu {
+        display: block;
+        width: fit-content;
+        margin: 50px auto 30px;
+        padding: 10px 22px;
+        border: 1px solid white;
+        border-radius: 50px;
+        color: white;
+        text-decoration: none;
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 14px;
+}
+
+.image-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.image-popup img {
+    max-width: 85%;
+    max-height: 85%;
+    object-fit: contain;
+    border-radius: 20px;
+}
+
+.close {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+.product-card {
+    overflow: hidden;
+}
+
+.product-info {
+    padding: 15px 5px;
+}
+
+.product-info h2 {
+    font-size: 20px;
+    margin-bottom: 6px;
+    color: bisque;
+}
+
+.product-info p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #c9ceda;
+}
+
+@media (max-width: 600px) {
+    .products {
+        grid-template-columns: 1fr;
+        width: 90%;
+        gap: 30px;
+    }
+
+    .products img:last-child {
+        grid-column: auto;
+        width: 100%;
+    }
+}
+
+.product-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 25px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.product-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+.product-info {
+    padding: 18px;
+}
+
+.product-info h2 {
+    color: bisque;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.product-info p {
+    color: #c9ceda;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+
+.product-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.price {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.order-btn {
+    padding: 8px 16px;
+    border: 1px solid white;
+    border-radius: 50px;
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.product-card {
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.language-switch {
+    position: fixed;
+    top: 25px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1000;
+}
+
+.language-switch button {
+    background: none;
+    border: none;
+    color: #c9ceda;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 4px;
+    transition: 0.3s ease;
+}
+
+.language-switch button:hover {
+    color: bisque;
+}
+
+.language-switch span {
+    color: #555e70;
+}
+
+@media (max-width: 600px) {
+    .language-switch {
+        top: 18px;
+        right: 18px;
+    }
+}
