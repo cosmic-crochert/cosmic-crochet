@@ -1,24 +1,25 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
-    background:
-    radial-gradient(circle at top, #1A2747 0%, #111827 35%, #0B0F1A 100% );
-    color: white;
-    overflow-x:hidden ;
-    font-family: sans-serif;
-    justify-content: center;
-    align-items: center;
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    font-family: "Space Grotesk", sans-serif;
 }
 
-body, html {
-    width: 100%;
-    height: 100%;
-    margin: 0%;
-    font-family: "Space Grotesk", sans-serif;
+body {
+    background:
+        radial-gradient(circle at top,
+            #1A2747 0%,
+            #111827 35%,
+            #0B0F1A 100%);
+    color: white;
+    overflow-x: hidden;
 }
 
 @font-face {
@@ -26,22 +27,20 @@ body, html {
     src: url("./fonts/SpaceGrotesk-Regular.ttf");
 }
 
-.space{
+.space {
     min-height: 100vh;
     position: relative;
 }
 
-.star{
+.star {
     position: absolute;
     width: 4px;
     height: 4px;
     background: white;
     border-radius: 50%;
-    box-shadow:    0 0 8px white,    0 0 14px white;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
+    box-shadow:
+        0 0 8px white,
+        0 0 14px white;
 }
 
 .s1 {
@@ -74,17 +73,17 @@ body, html {
     top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 0 15px;
     color: bisque;
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
+    text-align: center;
 }
 
-
-h1{
-    font-size: 70px;
-    width: 500;
+h1 {
+    font-size: clamp(40px, 10vw, 70px);
+    width: auto;
+    white-space: nowrap;
+    text-align: center;
 }
 
 .welcome {
@@ -96,6 +95,17 @@ h1{
     text-align: center;
     width: 90%;
     max-width: 700px;
+}
+
+.intro-text {
+    text-align: center;
+    max-width: 600px;
+    margin: 30px auto 0;
+    padding: 0 20px;
+    color: #c9ceda;
+    font-size: 14px;
+    line-height: 1.7;
+    font-weight: 400;
 }
 
 .ex-btn {
@@ -112,17 +122,12 @@ h1{
     display: inline-block;
     text-decoration: none;
     border-radius: 50px;
+    transition: 0.3s ease;
 }
 
-.intro-text {
-    text-align: center;
-    max-width: 600px;
-    margin: 30px auto 0;
-    padding: 0 20px;
-    color: #c9ceda;
-    font-size: 14px;
-    line-height: 1.7;
-    font-weight: 400;
+.ex-btn:hover {
+    background: white;
+    color: #0B0F1A;
 }
 
 .language-switch {
@@ -143,6 +148,7 @@ h1{
     font-size: 13px;
     cursor: pointer;
     padding: 4px;
+    transition: 0.3s ease;
 }
 
 .language-switch button:hover {
@@ -153,4 +159,71 @@ h1{
     color: #555e70;
 }
 
+@media (max-width: 600px) {
 
+    .language-switch {
+        top: 18px;
+        right: 18px;
+    }
+
+    .title {
+        top: 27%;
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    h1 {
+        font-size: 40px;
+        white-space: nowrap;
+        letter-spacing: -1px;
+    }
+
+    .welcome {
+        top: 62%;
+        width: 90%;
+        max-width: 350px;
+    }
+
+    .intro-text {
+        font-size: 13px;
+        line-height: 1.6;
+        margin-top: 20px;
+        padding: 0 10px;
+    }
+
+    .ex-btn {
+        margin-top: 18px;
+        padding: 9px 20px;
+        font-size: 13px;
+    }
+
+    .star {
+        width: 3px;
+        height: 3px;
+    }
+}
+
+@media (max-width: 380px) {
+
+    .title {
+        top: 25%;
+    }
+
+    h1 {
+        font-size: 34px;
+    }
+
+    .welcome {
+        top: 63%;
+        width: 92%;
+    }
+
+    .intro-text {
+        font-size: 12px;
+    }
+
+    .language-switch {
+        top: 15px;
+        right: 12px;
+    }
+}
