@@ -19,20 +19,29 @@ images.forEach((image) => {
 
 });
 
-closeBtn.addEventListener("click", () => {
+if (closeBtn) {
 
-    popup.style.display = "none";
+    closeBtn.addEventListener("click", () => {
 
-});
-
-popup.addEventListener("click", (event) => {
-
-    if (event.target === popup) {
         popup.style.display = "none";
-    }
 
-});
+    });
 
+}
+
+if (popup) {
+
+    popup.addEventListener("click", (event) => {
+
+        if (event.target === popup) {
+
+            popup.style.display = "none";
+
+        }
+
+    });
+
+}
 
 // ========================================
 // LANGUAGE
@@ -41,8 +50,8 @@ popup.addEventListener("click", (event) => {
 const enBtn = document.getElementById("enBtn");
 const arBtn = document.getElementById("arBtn");
 
-let currentLanguage = localStorage.getItem("cosmicLanguage") || "en";
-
+let currentLanguage =
+    localStorage.getItem("cosmicLanguage") || "en";
 
 // ========================================
 // PRODUCT DATA
@@ -277,16 +286,98 @@ const productsDetails = {
 
 };
 
+// ========================================
+// INSTAGRAM ORDER
+// ========================================
+
+const instagramDM =
+    "https://ig.me/m/cosmiccrochet26";
+
+let selectedProductId = null;
+
+function getOrderMessage(product) {
+
+    if (currentLanguage === "ar") {
+
+        return (
+            "مرحباً! 👋\n" +
+            "أريد طلب " +
+            product.nameAr +
+            " من Cosmic Crochet.\n" +
+            "هل هو متوفر؟ ✨"
+        );
+
+    }
+
+    return (
+        "Hi! 👋\n" +
+        "I'd like to order " +
+        product.name +
+        " from Cosmic Crochet.\n" +
+        "Is it available? ✨"
+    );
+
+}
+
+function orderProduct(product) {
+
+    const message = getOrderMessage(product);
+
+    if (navigator.clipboard) {
+
+        navigator.clipboard.writeText(message)
+            .catch(() => { });
+
+    }
+
+    window.open(instagramDM, "_blank");
+
+}
+
+// ========================================
+// ORDER BUTTONS
+// ========================================
+
+const orderButtons =
+    document.querySelectorAll(".order-btn");
+
+orderButtons.forEach((button) => {
+
+    button.addEventListener("click", (event) => {
+
+        event.preventDefault();
+
+        const productId =
+            button.id.replace("order", "");
+
+        const product =
+            productsDetails[productId];
+
+        if (product) {
+
+            orderProduct(product);
+
+        }
+
+    });
+
+});
 
 // ========================================
 // DETAILS ELEMENTS
 // ========================================
 
-const detailsPopup = document.getElementById("detailsPopup");
-const detailsClose = document.getElementById("detailsClose");
+const detailsPopup =
+    document.getElementById("detailsPopup");
 
-const detailsImage = document.getElementById("detailsImage");
-const detailsName = document.getElementById("detailsName");
+const detailsClose =
+    document.getElementById("detailsClose");
+
+const detailsImage =
+    document.getElementById("detailsImage");
+
+const detailsName =
+    document.getElementById("detailsName");
 
 const detailsDescription =
     document.getElementById("detailsDescription");
@@ -312,7 +403,6 @@ const materialLabel =
 const detailsButtons =
     document.querySelectorAll(".details-btn");
 
-
 // ========================================
 // UPDATE DETAILS BUTTON LANGUAGE
 // ========================================
@@ -323,18 +413,19 @@ function updateDetailsButtons() {
 
         if (currentLanguage === "ar") {
 
-            button.textContent = "المزيد من التفاصيل";
+            button.textContent =
+                "المزيد من التفاصيل";
 
         } else {
 
-            button.textContent = "More Details";
+            button.textContent =
+                "More Details";
 
         }
 
     });
 
 }
-
 
 // ========================================
 // OPEN PRODUCT DETAILS
@@ -344,14 +435,22 @@ detailsButtons.forEach((button) => {
 
     button.addEventListener("click", () => {
 
-        const productId = button.dataset.product;
-        const product = productsDetails[productId];
+        const productId =
+            button.dataset.product;
 
-        detailsImage.src = product.image;
+        const product =
+            productsDetails[productId];
+
+        selectedProductId =
+            productId;
+
+        detailsImage.src =
+            product.image;
 
         if (currentLanguage === "ar") {
 
-            detailsName.textContent = product.nameAr;
+            detailsName.textContent =
+                product.nameAr;
 
             detailsDescription.textContent =
                 product.descriptionAr;
@@ -374,7 +473,8 @@ detailsButtons.forEach((button) => {
             materialLabel.textContent =
                 "الخامة";
 
-            detailsPopup.dir = "rtl";
+            detailsPopup.dir =
+                "rtl";
 
         } else {
 
@@ -402,38 +502,76 @@ detailsButtons.forEach((button) => {
             materialLabel.textContent =
                 "Material";
 
-            detailsPopup.dir = "ltr";
+            detailsPopup.dir =
+                "ltr";
 
         }
 
-        detailsPopup.style.display = "flex";
+        detailsPopup.style.display =
+            "flex";
 
     });
 
 });
 
+// ========================================
+// ORDER FROM DETAILS
+// ========================================
+
+if (detailsOrder) {
+
+    detailsOrder.addEventListener("click", (event) => {
+
+        event.preventDefault();
+
+        if (!selectedProductId) {
+
+            return;
+
+        }
+
+        const product =
+            productsDetails[selectedProductId];
+
+        if (product) {
+
+            orderProduct(product);
+
+        }
+
+    });
+
+}
 
 // ========================================
 // CLOSE DETAILS
 // ========================================
 
-detailsClose.addEventListener("click", () => {
+if (detailsClose) {
 
-    detailsPopup.style.display = "none";
+    detailsClose.addEventListener("click", () => {
 
-});
+        detailsPopup.style.display =
+            "none";
 
+    });
 
-detailsPopup.addEventListener("click", (event) => {
+}
 
-    if (event.target === detailsPopup) {
+if (detailsPopup) {
 
-        detailsPopup.style.display = "none";
+    detailsPopup.addEventListener("click", (event) => {
 
-    }
+        if (event.target === detailsPopup) {
 
-});
+            detailsPopup.style.display =
+                "none";
 
+        }
+
+    });
+
+}
 
 // ========================================
 // ENGLISH
@@ -441,39 +579,60 @@ detailsPopup.addEventListener("click", (event) => {
 
 function setEnglish() {
 
-    currentLanguage = "en";
+    currentLanguage =
+        "en";
 
-    // Save language
-    localStorage.setItem("cosmicLanguage", "en");
+    localStorage.setItem(
+        "cosmicLanguage",
+        "en"
+    );
 
-    document.documentElement.dir = "ltr";
-    document.documentElement.lang = "en";
+    document.documentElement.dir =
+        "ltr";
 
-    document.getElementById("collectionTitle").textContent =
+    document.documentElement.lang =
+        "en";
+
+    document.getElementById(
+        "collectionTitle"
+    ).textContent =
         "My Collection";
 
     for (let i = 1; i <= 12; i++) {
 
-        const product = productsDetails[i];
+        const product =
+            productsDetails[i];
 
-        document.getElementById(`name${i}`).textContent =
-            product.name;
+        document.getElementById(
+            name$,{ i }`
+).textContent =
+product.name;
 
-        document.getElementById(`desc${i}`).textContent =
+document.getElementById(
+desc${i}`
+        ).textContent =
             product.description;
 
-        document.getElementById(`order${i}`).textContent =
-            "Order Now";
-
-    }
-
-    document.getElementById("mainMenu").textContent =
-        "Main Menu";
-
-    updateDetailsButtons();
+        document.getElementById(
+            order$,{ i }`
+).textContent =
+"Order Now";
 
 }
 
+const mainMenu =
+document.getElementById("mainMenu");
+
+if (mainMenu) {
+
+mainMenu.textContent =
+"Main Menu";
+
+}
+
+updateDetailsButtons();
+
+}
 
 // ========================================
 // ARABIC
@@ -481,85 +640,113 @@ function setEnglish() {
 
 function setArabic() {
 
-    currentLanguage = "ar";
+currentLanguage =
+"ar";
 
-    // Save language
-    localStorage.setItem("cosmicLanguage", "ar");
+localStorage.setItem(
+"cosmicLanguage",
+"ar"
+);
 
-    document.documentElement.dir = "rtl";
-    document.documentElement.lang = "ar";
+document.documentElement.dir =
+"rtl";
 
-    document.getElementById("collectionTitle").textContent =
-        "مجموعتي";
+document.documentElement.lang =
+"ar";
 
-    const namesAr = [
-        "نيبتون ميني ومارسِلِنغ",
-        "بيري أوربت",
-        "ضوء القمر على المريخ",
-        "سديم التوت",
-        "حقيبة درب التبانة",
-        "مون ستار",
-        "قلب المريخ",
-        "مارسِلِنغ الصغير",
-        "دب المريخ الصغير",
-        "نجوم كونية",
-        "فيونكة ضوء القمر",
-        "مدار السماء"
-    ];
+document.getElementById(
+"collectionTitle"
+).textContent =
+"مجموعتي";
 
-    const descriptionsAr = [
-        "مخلوقات صغيرة جاءت من الفضاء!",
-        "مجرة صغيرة تلتف حول شعرك!",
-        "مزيج جميل من الدفء والغموض!",
-        "حقيبة بلون التوت بلمسة من سحر الكون!",
-        "حقيبة سماوية ناعمة لمغامراتك اليومية!",
-        "قمر صغير يضيء بجانب نجمة!",
-        "قلب صغير ودافئ مستوحى من دفء المريخ!",
-        "كائن فضائي لطيف جاء إلى الأرض!",
-        "دفء + مرح = ألطف مارسِلِنغ!",
-        "مزيج رائع من لون منتصف الليل والأزرق السماوي والأحمر التوتي!",
-        "ما رأيكِ بإضافة نجمة صغيرة إلى شعركِ أو حقيبتكِ؟",
-        "موجات بين المحيط والسماء وهدوء لا ينتهي."
-    ];
+const namesAr = [
 
-    for (let i = 1; i <= 12; i++) {
+"نيبتون ميني ومارسِلِنغ",
+"بيري أوربت",
+"ضوء القمر على المريخ",
+"سديم التوت",
+"حقيبة درب التبانة",
+"مون ستار",
+"قلب المريخ",
+"مارسِلِنغ الصغير",
+"دب المريخ الصغير",
+"نجوم كونية",
+"فيونكة ضوء القمر",
+"مدار السماء"
 
-        document.getElementById(`name${i}`).textContent =
+];
+
+const descriptionsAr = [
+
+"مخلوقات صغيرة جاءت من الفضاء!",
+"مجرة صغيرة تلتف حول شعرك!",
+"مزيج جميل من الدفء والغموض!",
+"حقيبة بلون التوت بلمسة من سحر الكون!",
+"حقيبة سماوية ناعمة لمغامراتك اليومية!",
+"قمر صغير يضيء بجانب نجمة!",
+"قلب صغير ودافئ مستوحى من دفء المريخ!",
+"كائن فضائي لطيف جاء إلى الأرض!",
+"دفء + مرح = ألطف مارسِلِنغ!",
+"مزيج رائع من لون منتصف الليل والأزرق السماوي والأحمر التوتي!",
+"ما رأيكِ بإضافة نجمة صغيرة إلى شعركِ أو حقيبتكِ؟",
+"موجات بين المحيط والسماء وهدوء لا ينتهي."
+
+];
+
+for (let i = 1; i <= 12; i++) {
+
+document.getElementById(
+name${i}`
+        ).textContent =
             namesAr[i - 1];
 
-        document.getElementById(`desc${i}`).textContent =
-            descriptionsAr[i - 1];
+        document.getElementById(
+            desc$,{ i }`
+).textContent =
+descriptionsAr[i - 1];
 
-        document.getElementById(`order${i}`).textContent =
+document.getElementById(
+order${i}`
+        ).textContent =
             "اطلب الآن";
 
     }
 
-    document.getElementById("mainMenu").textContent =
-        "القائمة الرئيسية";
+    const mainMenu =
+        document.getElementById("mainMenu");
+
+    if (mainMenu) {
+
+        mainMenu.textContent =
+            "القائمة الرئيسية";
+
+    }
 
     updateDetailsButtons();
 
 }
 
-
 // ========================================
 // LANGUAGE BUTTONS
 // ========================================
 
-enBtn.addEventListener("click", () => {
+if (enBtn) {
 
-    setEnglish();
+    enBtn.addEventListener(
+        "click",
+        setEnglish
+    );
 
-});
+}
 
+if (arBtn) {
 
-arBtn.addEventListener("click", () => {
+    arBtn.addEventListener(
+        "click",
+        setArabic
+    );
 
-    setArabic();
-
-});
-
+}
 
 // ========================================
 // LOAD SAVED LANGUAGE
